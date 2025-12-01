@@ -45,6 +45,7 @@ Market_Conn의 비밀번호는 1234 입니다
 비밀번호 또한 1234 입니다 
 
 Gamemarket에 있는 테스트 유저는 총 3명입니다 
+
 ADMIN 유저
 id: root
 pw: root1234
