@@ -48,7 +48,7 @@
         <br> 주문번호 : <% out.println(shipping_cartId); %> </p>
 </div>
 <div class="container">
-    <p> <a href="./books.jsp" class="btn btn-secondary">&laquo;도서 목록</a>
+    <p> <a href="./books.jsp" class="btn btn-secondary">&laquo;게임 목록</a>
     </p>
 <%@ include file="footer.jsp" %>
 </div>
