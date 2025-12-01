@@ -24,7 +24,7 @@
 <h2 class = "alert alert-danger">주문이 취소되었습니다</h2>
 </div>
 <div class="container">
-<p> <a href="./books.jsp" class="btn btn-secondary"> &laqua;도서 목록</a>
+<p> <a href="./books.jsp" class="btn btn-secondary"> &laqua;게임 목록</a>
 </div>
 
 <%@ include file = "footer.jsp" %>

@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="dto.Book" %>
+<%@ page import="dao.LibraryDao" %>
 <%@ page import="java.net.URLDecoder" %>
 <html>
 <head>
@@ -53,11 +56,48 @@
 </body>
 </html>
 <%
-    session.invalidate();
+    // ✅ 1. 결제된 상품들을 라이브러리에 등록
+    String memberId = (String) session.getAttribute("id");  // 로그인한 회원 ID
 
-    for (int i=0; i < cookies.length; i++) {
-        Cookie thisCookie=cookies[i];
-        String n=thisCookie.getName();
+    if (memberId != null) {
+        // 장바구니에 담았던 도서 목록 (ArrayList<Book> 형태라고 가정)
+        Object obj = session.getAttribute("cartlist");
+        ArrayList<Book> cartList = null;
+
+        if (obj instanceof ArrayList<?>) {
+            try {
+                cartList = (ArrayList<Book>) obj;
+            } catch (ClassCastException e) {
+                // 타입이 다르면 그냥 라이브러리 등록은 스킵
+                e.printStackTrace();
+            }
+        }
+
+        if (cartList != null && !cartList.isEmpty()) {
+            LibraryDao libDao = LibraryDao.getInstance();   // 🔹 new 말고 싱글톤 사용
+
+            for (Book b : cartList) {
+                if (b == null) continue;
+
+                String bookId = b.getBookId();  // Book DTO의 PK
+                if (bookId == null || bookId.isEmpty()) continue;
+
+                // 라이브러리에 구매한 도서 등록
+                libDao.addToLibrary(memberId, bookId);
+                // 또는 libDao.addGame(memberId, bookId); 둘 다 가능 (둘 다 만들어놨으니까)
+            }
+        }
+    }
+
+    // ✅ 2. 세션/쿠키 정리 로직
+    //    👉 주문 후 자동 로그아웃 하고 싶으면 session.invalidate() 유지
+    //    👉 로그인은 유지하고 장바구니만 비우고 싶으면 아래 한 줄로 바꾸기
+    // session.invalidate();
+    session.removeAttribute("cartlist");   // 장바구니만 비우기
+
+    for (int i = 0; i < cookies.length; i++) {
+        Cookie thisCookie = cookies[i];
+        String n = thisCookie.getName();
         if (n.equals("Shipping_cartId"))
             thisCookie.setMaxAge(0);
         if (n.equals("Shipping_name"))

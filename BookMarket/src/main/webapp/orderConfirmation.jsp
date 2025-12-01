@@ -77,7 +77,7 @@
 <div class="py-5">
     <table class="table table-hover">
         <tr>
-            <th class="text-center">도서</th>
+            <th class="text-center">게임</th>
             <th class="text-center">수량</th>
             <th class="text-center">가격</th>
             <th class="text-center">소계</th>

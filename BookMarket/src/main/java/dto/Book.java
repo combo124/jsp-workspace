@@ -19,9 +19,19 @@ public class Book implements Serializable{
 	private String condition;     // 신제품 or 구제품 or 리퍼브제
 	private String filename;
 	private int quantity;
+    private String gameUrl;
+
 	
 	
 	
+
+	public String getGameUrl() {
+		return gameUrl;
+	}
+
+	public void setGameUrl(String gameUrl) {
+		this.gameUrl = gameUrl;
+	}
 
 	public int getQuantity() {
 		return quantity;
